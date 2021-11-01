@@ -90,70 +90,87 @@ See below for information on the exact definition of data structure to be used t
 
 In the table below you will find the exact specifications for the functions you will implement in this assignment:
 
-| Name        | Parameters                                                                                                                                                                                                               | Return Value | Description/Other |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | ----------------- |
-| `findFirst` | <ol><li>A function, _needle_, with one parameter of type _a_ that returns `True` if its argument is the item to find and `False` otherwise: `(a -> Bool)`</li><li>A list, _haystack_, of elements of type _a_.</li></ol> |              |
-|             |                                                                                                                                                                                                                          |              |                   |
-|             |                                                                                                                                                                                                                          |              |                   |
-|             |                                                                                                                                                                                                                          |              |                   |
+| Name              | Parameters                                                                                                                                                                                                                                                                                                   | Return Value                                                                                                                                                                                                | Description/Other                                                                                                                                                |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `findFirst`       | <ol><li>A function, _needle_, with one parameter of type _a_ that returns `True` if its argument is the item to find and `False` otherwise: `(a -> Bool)`</li><li>A list, _haystack_, of elements of type _a_.</li></ol>                                                                                     | A `Match` which contains the index of the first element (in left-to-right order) of _haystack_ that causes _needle_ to return `True`; `NoMatch` if no element of haystack causes _needle_ to return `True`. | `findFirst` returns `NoMatch` when _haystack_ is an empty list.                                                                                                  |
+| `palindrome`      | A string, _candidate_.                                                                                                                                                                                                                                                                                       | True if _candidate_ is a palindrome; False, otherwise.                                                                                                                                                      | The empty string is a palindrome. Strings will contain only lowercase letters.                                                                                   |
+| `mergesort`       | <ol><li>An ordering function, _comparator_, that takes two parameters, _left_ and _right_ both of type _a_, and returns `True` if _left_ should appear before _right_ in the final sorted list and `False` otherwise: `(a -> a -> Bool)`</li><li>A list, _to_sort_, of elements of tpye _a_: `[a]`</li></ol> | A list of elements of type _a_ sorted according to the _comparator_ ordering function using the mergesort algorithm: `[a]`                                                                                  |                                                                                                                                                                  |
+| `runLengthEncode` | A string, _to_encode_.                                                                                                                                                                                                                                                                                       | A list of elements of type `RunLength` that represent the run-length encoding of _to_encode_: `[RunLength]`                                                                                                 | The run-length encoding of an empty string a list that contains no `RunLength`s. Strings to encode will contain only lower case letters but may contain numbers. |
 
-Data
-The Found data type is the return value for the findFirst function. It has two variants/constructors: Match and NoMatch. The Match constructor takes a parameter that indicates at which index the match was found.
+### Data
 
-findFirst (\x -> x == 1) [0, 2, 3, 1]
+The `Found` data type is the return value for the `findFirst` function. It has two variants/constructors: `Match` and `NoMatch`. The Match constructor takes a parameter that indicates at which index the match was found.
+
+`findFirst (\x -> x == 1) [0, 2, 3, 1]`
+
 evaluates to
 
-(Match 3)
+`(Match 3)`
+
 while
 
-findFirst (\x -> x == 7) [0, 2, 3, 1]
+`findFirst (\x -> x == 7) [0, 2, 3, 1]`
+
 evaluates to
 
-NoMatch
-The RunLength data type is the type of the elements of the list returned by the runLengthEncode function. Each entry in the list returned by runLengthEncode will be an instance of this type. The Span constructor creates a RunLength and takes two parameters: the length of the run and the value being encoded.
+`NoMatch`
 
-runLengthEncode "aabbccdd"
+The `RunLength` data type is the type of the elements of the list returned by the `runLengthEncode` function. Each entry in the list returned by `runLengthEncode` will be an instance of this type. The `Span` constructor creates a `RunLength` and takes two parameters: the length of the run and the value being encoded.
+
+`runLengthEncode "aabbccdd"`
+
 evaluates to
 
-[ (Span 2 'a'), (Span 2 'b'), (Span 2 'c'), (Span 2 'd') ]
-Getting Started
+`[ (Span 2 'a'), (Span 2 'b'), (Span 2 'c'), (Span 2 'd') ]`
+
+## Getting Started
+
 To begin this assignment, make sure that you have a working installation of Haskell:
 
-Linux (Links to an external site.) (and click on "Show linux distros")
-Windows
-Mac
+-   [Linux](https://www.haskell.org/downloads/) (and click on "Show linux distros")
+-   Windows
+-   Mac
+
 Next, download the skeleton code from github:
 
-git clone https://github.com/hawkinsw/CS3003-Assignment2 (Links to an external site.)
-Files
+`git clone https://github.com/hawkinsw/CS3003-Assignment2`
+
+### Files
+
 There are several files in the repository that you will want to explore:
 
-src/Assignment2.hs
+#### src/Assignment2.hs
 
 This file is the place where you will implement the functions specified above.
 
 It also contains definitions and constructors for data types that you will you need to use to successfully complete this assignment.
 
-src/Main.hs
+#### src/Main.hs
 
 This file contains unit tests that you can use to verify that your implementations are operating according to specification. There is no need to change any code in this file.
 
-Testing/Debugging
+### Testing/Debugging
+
 Haskell has a built-in REPL for testing/debugging. From the command line, you can run
 
-cabal new-repl
-from the directory that contains the CS3003-Assignment2.cabal file. If your code compiles, you will get a prompt that looks like
+`cabal new-repl`
 
-\*Assignment2>
-at the prompt you can invoke the functions that you have defined and check whether their output is what you expect. There is plenty of documentation for the REPL available online (Links to an external site.).
+from the directory that contains the `CS3003-Assignment2.cabal` file. If your code compiles, you will get a prompt that looks like
+
+`\*Assignment2>`
+
+at the prompt you can invoke the functions that you have defined and check whether their output is what you expect. There is plenty of documentation for the REPL available [online](https://downloads.haskell.org/~ghc/9.0.1/docs/html/users_guide/ghci.html).
 
 To test whether your code passes all the unit tests, you can run
 
-cabal new-run
+`cabal new-run`
+
 and you should see
 
-Pass
+`Pass`
+
 printed 27 times.
 
-Submission Requirement and Grading Rubric
-This assignment is worth 100 points. There are 27 unit tests and you will receive 3.7 points for every passing test. All submissions must be done through Gradescope. Gradescope submissions must be named Assignment2.hs or they will not be autograded. Gradescope will score your submission "all or nothing". I will manually grade submissions that partially succeed -- don't worry!
+## Submission Requirement and Grading Rubric
+
+This assignment is worth 100 points. There are 27 unit tests and you will receive 3.7 points for every passing test. All submissions must be done through Gradescope. Gradescope submissions must be named `Assignment2.hs` or they will not be autograded. Gradescope will score your submission "all or nothing". I will manually grade submissions that partially succeed -- don't worry!
