@@ -90,16 +90,13 @@ See below for information on the exact definition of data structure to be used t
 
 In the table below you will find the exact specifications for the functions you will implement in this assignment:
 
-| Name | Parameters | Return | Value | Description/Other |
-| ---- | ---------- | ------ | ----- | ----------------- |
+| Name        | Parameters                                                                                                                                                                                                               | Return Value | Description/Other |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | ----------------- |
+| `findFirst` | <ol><li>A function, _needle_, with one parameter of type _a_ that returns `True` if its argument is the item to find and `False` otherwise: `(a -> Bool)`</li><li>A list, _haystack_, of elements of type _a_.</li></ol> |              |
+|             |                                                                                                                                                                                                                          |              |                   |
+|             |                                                                                                                                                                                                                          |              |                   |
+|             |                                                                                                                                                                                                                          |              |                   |
 
-`findFirst` | 1. A function, _needle_, with one parameter of type _a_ that returns `True` if its argument is the item to find and `False` otherwise: `(a -> Bool)` 2. A list, _haystack_, of elements of type _a_. | A Match which contains the index of the first element (in left-to-right order) of haystack that causes needle to return True; NoMatch if no element of haystack causes needle to return True. | findFirst returns NoMatch when haystack is an empty list.
-palindrome A string, candidate. True if candidate is a palindrome; False, otherwise. The empty string is a palindrome. Strings will contain only lowercase letters.
-mergesort
-An ordering function, comparator, that takes two parameters, left and right both of type a, and returns True if left should appear before right in the final sorted list and False otherwise: (a -> a -> Bool)
-A list, to_sort, of elements of type a: [a]
-A list of elements of type a sorted according to the comparator ordering function using the mergesort algorithm: [a]
-runLengthEncode A string, to_encode. A list of elements of type RunLength that represent the run-length encoding of to_encode: [RunLength] The run-length encoding of an empty string a list that contains no RunLengths. Strings to encode will contain only lower case letters but may contain numbers.
 Data
 The Found data type is the return value for the findFirst function. It has two variants/constructors: Match and NoMatch. The Match constructor takes a parameter that indicates at which index the match was found.
 
