@@ -19,8 +19,15 @@ runLengthEncode :: [Char] -> [RunLength]
 
 ------------------------------------------------
 -- palindrome
+-- x = head, xs = tail
+-- If the first element (x) and last tail element 
+-- (last xs) are the same and the middle is also
+-- a palindrome (checked recursively), then return
+-- True, else return False.
 ------------------------------------------------
 palindrome :: [Char] -> Bool
+palindrome [] = True
+palindrome (x:xs) = (x == last xs) && palindrome (init xs)
 
 ------------------------------------------------
 -- mergesort
