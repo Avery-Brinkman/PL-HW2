@@ -7,11 +7,14 @@ data Found = Match Int | NoMatch deriving Eq
 instance Show Found where
   show (Match index) = "Found match at " ++ show index
   show NoMatch = "No match found!"
-findFirst :: Eq a => (a -> Bool) -> [a] -> Found
-findFirst needle haystack 
+indexTracker :: Eq a => (a -> Bool) -> [a] -> Int -> Found
+indexTracker needle haystack ind
     | null haystack = NoMatch
-    | needle (last haystack) = Match (length haystack - 1)
-    | otherwise = findFirst needle (init haystack)
+    | needle (head haystack) = Match ind
+    | otherwise = indexTracker needle (tail haystack) (ind + 1)
+
+findFirst :: Eq a => (a -> Bool) -> [a] -> Found
+findFirst needle haystack = indexTracker needle haystack 0
 
 ------------------------------------------------
 -- runLengthEncode
