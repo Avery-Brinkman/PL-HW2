@@ -9,6 +9,7 @@ unit_test expected actual | expected == actual = "Pass"
 main :: IO ()
 main = do
   -- Test findFirst
+  putStrLn "findFirst"
   putStrLn $ unit_test (NoMatch) $ findFirst ((==) 1) []
   putStrLn $ unit_test (Match 0) $ findFirst ((/=) 1) [10, 1, 9, 2, 8, 3, 7, 4, 6, 5]
   putStrLn $ unit_test (Match 9) $ findFirst ((==) 5) [10, 1, 9, 2, 8, 3, 7, 4, 6, 5]
@@ -16,6 +17,7 @@ main = do
   putStrLn $ unit_test (NoMatch) $ findFirst (const False) [10, 1, 9, 2, 8, 3, 7, 4, 6, 5]
   putStrLn $ unit_test (NoMatch) $ findFirst ((==) 11) [10, 1, 9, 2, 8, 3, 7, 4, 6, 5]
   -- Test mergesort
+  putStrLn "mergesort"
   putStrLn $ unit_test [] $ mergesort ((>)::Integer->Integer->Bool) []
   putStrLn $ unit_test [1] $ mergesort (>) [1]
   putStrLn $ unit_test [1, 2] $ mergesort (<) [2,1]
@@ -23,6 +25,7 @@ main = do
   putStrLn $ unit_test [1,2,3,4,5,6,7,8,9,10] $ mergesort (<) [10, 1, 9, 2, 8, 3, 7, 4, 6, 5]
   putStrLn $ unit_test [10,9,8,7,6,5,4,3,2,1] $ mergesort (>) [10, 1, 9, 2, 8, 3, 7, 4, 6, 5]
   -- Test palindrome
+  putStrLn "palindrome"
   putStrLn $ unit_test True $ palindrome ""
   putStrLn $ unit_test True $ palindrome "a"
   putStrLn $ unit_test True $ palindrome "aa"
@@ -33,6 +36,7 @@ main = do
   putStrLn $ unit_test True $ palindrome "madamimadam"
   putStrLn $ unit_test True $ palindrome "neveroddoreven"
   -- Test runLengthEncode
+  putStrLn "runLengthEncode"
   putStrLn $ unit_test [ ] $ runLengthEncode ""
   putStrLn $ unit_test [ (Span 1 'a') ] $ runLengthEncode "a"
   putStrLn $ unit_test [ (Span 1 'a'), (Span 1 'b') ] $ runLengthEncode "ab"

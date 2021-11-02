@@ -8,7 +8,10 @@ instance Show Found where
   show (Match index) = "Found match at " ++ show index
   show NoMatch = "No match found!"
 findFirst :: Eq a => (a -> Bool) -> [a] -> Found
-findFirst _ _ = NoMatch
+findFirst needle haystack 
+    | null haystack = NoMatch
+    | needle (last haystack) = Match (length haystack - 1)
+    | otherwise = findFirst needle (init haystack)
 
 ------------------------------------------------
 -- runLengthEncode
@@ -17,19 +20,19 @@ data RunLength = Span Integer Char deriving Eq
 instance Show RunLength where
   show (Span length c) = "Length: " ++ show length ++ ": " ++ show c
 runLengthEncode :: [Char] -> [RunLength]
-runLengthEncode _ = [Span 3 'b']
+runLengthEncode needle = [Span 3 'b']
 
 ------------------------------------------------
 -- palindrome
--- x = head, xs = tail
--- If the first element (x) and last tail element 
--- (last xs) are the same and the middle is also
+-- If string of one or less, returns true.
+-- OR
+-- If the first element (head candidate) and last tail element 
+-- (last tail candidate) are the same, AND the middle is also
 -- a palindrome (checked recursively), then return
 -- True, else return False.
 ------------------------------------------------
 palindrome :: [Char] -> Bool
-palindrome [] = True
-palindrome (x:xs) = (x == last xs) && palindrome (init xs)
+palindrome candidate = (length candidate <= 1) || ((head candidate == last (tail candidate)) && palindrome (init (tail candidate)))
 
 ------------------------------------------------
 -- mergesort
