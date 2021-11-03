@@ -2,11 +2,21 @@ module Assignment2 where
 
 ------------------------------------------------
 -- findFirst
+-- findFirst calls another function called indexTracker
+-- indexTracker is the same function, but also has an
+-- argument for the current index. If the first element
+-- of hastack satisfies needle, the Match current index 
+-- is returned. If not, indexTracker is called again on the 
+-- tail with the index incremented by one. If indexTracker 
+-- is called on an empty list (which happens if the initial 
+-- list is empty and if the end of the list is reached) then
+-- NoMatch is returned. 
 ------------------------------------------------
 data Found = Match Int | NoMatch deriving Eq
 instance Show Found where
   show (Match index) = "Found match at " ++ show index
   show NoMatch = "No match found!"
+
 indexTracker :: Eq a => (a -> Bool) -> [a] -> Int -> Found
 indexTracker needle haystack ind
     | null haystack = NoMatch
@@ -18,6 +28,15 @@ findFirst needle haystack = indexTracker needle haystack 0
 
 ------------------------------------------------
 -- runLengthEncode
+-- This function uses 2 additional functions.
+-- runCount takes a string and returns the 
+-- number of times the first element of that string
+-- is repeated (consecutively).
+-- nextLength takes a string and recursively removes
+-- the first character until a new character is reached,
+-- returning the new string without the first 'group'.
+-- runLengthEncode returns the Span of the first element 
+-- (as a list), and appends runLengthEncode of nextLength.
 ------------------------------------------------
 data RunLength = Span Integer Char deriving Eq
 instance Show RunLength where
@@ -54,15 +73,17 @@ palindrome candidate = (length candidate <= 1) || ((head candidate == last (tail
 
 ------------------------------------------------
 -- mergesort
+-- The function uses merge to combine the recursively
+-- sortec first and second halves of the list.   
 ------------------------------------------------
 merge :: (Ord a) => (a -> a -> Bool) -> [a] -> [a] -> [a]
 merge _ [] y = y
 merge _ x [] = x
-merge f x y
+merge compareFunc x y
     | null x = y
     | null y = x
-    | f (head x) (head y) = (head x):merge f (tail x) y
-    | otherwise = (head y):merge f x (tail y)
+    | compareFunc (head x) (head y) = (head x):merge compareFunc (tail x) y
+    | otherwise = (head y):merge compareFunc x (tail y)
 
 mergesort :: (Ord a) => (a -> a -> Bool) -> [a] -> [a]
 mergesort compareFunc nums
