@@ -22,8 +22,17 @@ findFirst needle haystack = indexTracker needle haystack 0
 data RunLength = Span Integer Char deriving Eq
 instance Show RunLength where
   show (Span length c) = "Length: " ++ show length ++ ": " ++ show c
+runCount :: [Char] -> Integer -> Integer
+runCount [] cnt = cnt
+runCount (x:xs) cnt
+    | null xs = cnt
+    | x == head xs = runCount xs (cnt + 1)
+    | otherwise = cnt
 runLengthEncode :: [Char] -> [RunLength]
-runLengthEncode needle = [Span 3 'b']
+runLengthEncode to_encode
+    | null to_encode = []
+    | otherwise = [Span runLength (head to_encode)]
+    where runLength = runCount to_encode 1
 
 ------------------------------------------------
 -- palindrome
