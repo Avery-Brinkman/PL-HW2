@@ -23,16 +23,22 @@ data RunLength = Span Integer Char deriving Eq
 instance Show RunLength where
   show (Span length c) = "Length: " ++ show length ++ ": " ++ show c
 runCount :: [Char] -> Integer -> Integer
-runCount [] cnt = cnt
-runCount (x:xs) cnt
-    | null xs = cnt
-    | x == head xs = runCount xs (cnt + 1)
-    | otherwise = cnt
+runCount [] _ = 0
+runCount str count
+    | null (tail str) = count + 1
+    | head str == head (tail str) = runCount (tail str) (count + 1)
+    | otherwise = count + 1
+
+nextLength :: [Char] -> [Char]
+nextLength str
+    | null str || null (tail str) = []
+    | head str == head (tail str) = nextLength (tail str)
+    | otherwise = tail str
+
 runLengthEncode :: [Char] -> [RunLength]
 runLengthEncode to_encode
     | null to_encode = []
-    | otherwise = [Span runLength (head to_encode)]
-    where runLength = runCount to_encode 1
+    | otherwise = [Span (runCount to_encode 0) (head to_encode)] ++ runLengthEncode (nextLength to_encode)
 
 ------------------------------------------------
 -- palindrome
